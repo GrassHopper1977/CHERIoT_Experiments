@@ -1,8 +1,8 @@
 # CHERIoT_Experiments
-Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRISC.
+Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRISC. This is not intended to be any kind of replacement for the official documentation, it's more of a historical document for us during our experiments with the Sonata board but it may be of use to some.
 
 # Installing Development Environment on Windows
-I'm not ashamed to admit that I use Visual Studio Code on Winodws as my preferred IDE (I just have too many otehr programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up teh Sonata Board and the IDE but they don't all appear to be updated. I will document the entire process here with date and version information so that you can just for yourself.
+I'm not ashamed to admit that I use Visual Studio Code on Winodws as my preferred IDE (I just have too many otehr programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up the Sonata Board and the IDE but they don't all appear to be updated. I will document the entire process here with date and version information so that you can just for yourself.
 
 ## Sources of help and information
 1. [Getting started with the Sonata board](https://lowrisc.github.io/sonata-system/doc/guide/index.html) This is the main documentation for the Sonata board and should be kept up to date.
