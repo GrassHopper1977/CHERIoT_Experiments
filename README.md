@@ -11,7 +11,7 @@ Note: The main source of information for this section is the [Updating the Sonat
 6. A Flash drive will appear called `RPI RP2` (you can let go of the button now, if you haven't already).
 7. Copy the `rpi_rp2_v0.X.uf2` file onto `RPI RP2`. Omnce it's finished copying it will disappear and a new drive will appear called `SONATA`
 8. Now copy the `sonata-vX.Y.bit.slot1.uf2` onto the `SONATA` drive. Again, it will automatically attempt to install.
-9. Watch the green LEDs on the Sonata board. Once `FPGA Config` and `Ibex Boot` are solid green, you know that it's programmed.
+9. Watch the green LEDs on the Sonata board. Once `FPGA Config` and `Ibex Boot` are solid green, you know that it's programmed. Also teh `CHERI` LED should be lit and the `Legacy` LED should be off.
 10. We used the file `sonata-v0.4.1.bit.slot1.uf2` and, after copying it across, the device automatically rebooted and played a simple Hello World application. The screen displays the lowRISC logo and the text, "Hello world!" and ULED0 to ULED 7 begin to display a pattern.
 11. Next you will need to setup the IDE to program the device.
 
