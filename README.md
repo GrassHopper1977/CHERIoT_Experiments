@@ -58,7 +58,7 @@ We're attempting to follow teh instructions from [From zero to CHERIoT in two mi
 ```
 8. `source` should remain as `/Volumes/SONATA`
 9. `target` should be altered to point to the SONATA device. In my case it is mounted as drive D. If we place `D:` here it fails. This is what we intend to use WSL to try to solve.
-10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt.
+10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt. I've beeb closing and reopening Visual Studio Code to get around this but I'm sure there's a shortcut for it - I just haven't had a chance to look yet.
 11. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
 
 ## Terminal Access
