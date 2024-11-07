@@ -23,10 +23,10 @@ I'm not ashamed to admit that I use Visual Studio Code on Windows as my preferre
 2. [Sonata Software - Getting started guide](https://lowrisc.github.io/sonata-software/doc/getting-started.html) This is the main documentation for the Sonata Software and should be kept up to date. This also includes a section on installing the IDE on Windows (using the Windows Subsystem for Linux).
 3. [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) This is the first one that I treid and it didn't work for me. I was unable to get it to build and it assumed that I already had Docker installed (I did not at the time).
 
-## Installing
+## Installing on Windows
 We attempted to get the toolchain running on Windows following the [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) and found that it wasn't building and the connection to the drive wasn't working. A suggestion from [this page](https://github.com/orgs/CHERIoT-Platform/discussions/245) suggested using WSL (Windows Subsystem for Linux) for some parts of the install, so that's what we will be attempting. We're also going to attempt this on a fresh Windows 11 install to make life a bit easier.
 
-### Installing on Windows
+### Installing WSL
 We need to install the Windows Subsystem for Linux.
 1. From the Start menu open Windows PowerShell and run it as Administrator.
 2. On a recent version of Windows it will defaul to installing Unbuntu when you run a following command. If you have any issues look at Mircosoft's detailed instructions that can be found [here](https://learn.microsoft.com/en-us/windows/wsl/install).
@@ -36,7 +36,30 @@ wsl --install
 3. Wait for the install to finish. It may take a long time.
 4. After install, reboot your machine for it to finish the install.
 5. Click Start and find Ubuntu, and click it to start.
-6. The first time it will ask about a Unix username and password.
+6. The first time it will ask about a Unix username and password. We may need this for later.
+
+### Other Packages to have Installed
+1. Got to [Install Docker Desktop on Windows](https://docs.docker.com/desktop/setup/install/windows-install/) and follow the instructions.
+2. Install Microsoft Visual Studio Code if you don't already have it.
+
+### Setting Up the Toolchain
+We're attempting to follow teh instructions from [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html).
+1. Open Visual Studio Code.
+2. Select 'Clone Git Repository' and clone the `cheriot-rtos` repository (https://github.com/CHERIoT-Platform/cheriot-rtos.git).
+3. Select a destination for the code and save. Visual Studio Code will ask you if you want to `Reopen in container` so select OK. Note: If Docker isn't running, it will return an error.
+4. Contecting to the container can take a while the first time that you do it.
+5. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
+6. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
+7. The code that we are adding should look something like this:
+```
+"mounts": [
+    "source=/Volumes/SONATA,target=/mnt/SONATA,type=bind"
+]
+```
+8. `source` should remain as `/Volumes/SONATA`
+9. `target` should be altered to point to the SONATA device. In my case it is mounted as drive D. If we place `D:` here it fails. This is what we intend to use WSL to try to solve.
+10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt.
+11. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
