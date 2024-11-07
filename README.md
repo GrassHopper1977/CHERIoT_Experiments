@@ -33,10 +33,11 @@ We need to install the Windows Subsystem for Linux.
 ```
 wsl --install
 ```
-3. Wait fro the install to finish. It may take a long time.
+3. Wait for the install to finish. It may take a long time.
 4. After install, reboot your machine for it to finish the install.
 5. Click Start and find Ubuntu, and click it to start.
 6. The first time it will ask about a Unix username and password.
-7. Now you can follow the Unix installation instructions using Ubuntu.
 
-### Installing on Unix
+## Terminal Access
+After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
+There doesn't appear to be an output on any of these terminals so I may have the buad rate incorrect.
