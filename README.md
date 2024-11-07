@@ -58,8 +58,27 @@ We're attempting to follow teh instructions from [From zero to CHERIoT in two mi
 ```
 8. `source` should remain as `/Volumes/SONATA`
 9. `target` should be altered to point to the SONATA device. In my case it is mounted as drive D. If we place `D:` here it fails. This is what we intend to use WSL to try to solve.
-10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt. I've beeb closing and reopening Visual Studio Code to get around this but I'm sure there's a shortcut for it - I just haven't had a chance to look yet.
-11. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
+10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt. I've beeb closing and reopening Visual Studio Code to get around this but I'm sure there's a shortcut for it - I just haven't had a chance to look yet. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
+
+### Building the Code Examples
+1. Open the `examples` folder.
+2. Read `README.md` for an explanation of each of the examples.
+3. We're going to try to run example 1: `01.hello_world`
+4. Open the terminal at the bottom of Visual Studio Code.
+5. You are probably in the root folder of the project so we want to browse to the `01.hello_world` folder: `cd examples/01.hello_world/`
+6. Now execute the following:
+```
+xmake config --sdk=/cheriot-tools --board=sonata
+xmake
+xmake run
+```
+7. This should build the code for us. The `sdk` option should already be correct for the compartment that we are running in. If it fails for any reason, it is possible that we are no longer running in the comaprtment, this will happen if the mount point failed (you can remove the mount point from the devcontainer.json file to allow us to build. We can always add it back in once we've got it working on Windows.)
+8. It fails on teh second step (`xmake`) with teh following error: 
+```
+error: /workspaces/cheriot-rtos/sdk/include/cheri.hh:12:10: fatal error: 'magic_enum/magic_enum.hpp' file not found
+#include <magic_enum/magic_enum.hpp>
+```
+9. I guess I've still got soemthing wrong somewhere.
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
