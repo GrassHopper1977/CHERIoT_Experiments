@@ -41,6 +41,7 @@ wsl --install
 ### Other Packages to have Installed
 1. Got to [Install Docker Desktop on Windows](https://docs.docker.com/desktop/setup/install/windows-install/) and follow the instructions.
 2. Install Microsoft Visual Studio Code if you don't already have it.
+3. Turn on Windows Developer mode as described [here](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development). We're not 100% sure it is needed but it enables symlinks, which may be needed.
 
 ### Setting Up the Toolchain
 We're attempting to follow teh instructions from [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html).
@@ -48,9 +49,10 @@ We're attempting to follow teh instructions from [From zero to CHERIoT in two mi
 2. Select 'Clone Git Repository' and clone the `cheriot-rtos` repository (https://github.com/CHERIoT-Platform/cheriot-rtos.git).
 3. Select a destination for the code and save. Visual Studio Code will ask you if you want to `Reopen in container` so select OK. Note: If Docker isn't running, it will return an error.
 4. Contecting to the container can take a while the first time that you do it.
-5. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
-6. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
-7. The code that we are adding should look something like this:
+5. You may get a warning about unsafe repositories, you can click on it and choose to to allow all of them (I get two).
+6. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
+7. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
+8. The code that we are adding should look something like this:
 ```
 "mounts": [
     "source=/Volumes/SONATA,target=/mnt/SONATA,type=bind"
