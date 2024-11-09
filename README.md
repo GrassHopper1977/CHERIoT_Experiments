@@ -88,11 +88,20 @@ error: /workspaces/cheriot-rtos/sdk/include/cheri.hh:12:10: fatal error: 'magic_
 3. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 4. Start VirtualBox (it will probably start automatically).
 5. There's detailed instructions on installing Ubuntu on VirtualBox [here](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview).
-6. Open the terminal to install GIT for Linux:
+6. Log into the virtual Ubuntu (mine is generating lots of errors).
+7. Open the terminal to install GIT for Linux:
 ```
 sudo apt-get install git
 ```
-7. 
+8. There is an install menu. You want to install Visual Studio Code (the name is abbreviated to Code).
+9. Install Docker too.
+10. Reboot Ubuntu.
+11. Open Visual Studio Code
+12. From the start menu and select "Clone repository"
+13. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
+14. It will ask you if you want to open the repo as a project- do that.
+15. It will ask you if you want to repone teh project in the Container. Select Yes.
+16. 
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
