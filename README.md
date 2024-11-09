@@ -89,13 +89,24 @@ error: /workspaces/cheriot-rtos/sdk/include/cheri.hh:12:10: fatal error: 'magic_
 4. Start VirtualBox (it will probably start automatically).
 5. There's detailed instructions on installing Ubuntu on VirtualBox [here](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview).
 6. Log into the virtual Ubuntu (mine is generating lots of errors).
-7. Open the terminal to install GIT for Linux:
+7. Open the terminal and type: `sudo apt update && sudo apt upgrade -y`
+8. Now type: `sudo snap refresh` (If asked to reboot, wait until the snap update has finished installing.)
+9. Open the terminal to install GIT for Linux:
 ```
 sudo apt-get install git
 ```
-8. There is an install menu. You want to install Visual Studio Code (the name is abbreviated to Code).
-9. Install Docker too.
-10. There a note saying that Docker will only be availabel to root users. To change this we need to do the following from the Terminal:
+10. There is an install menu. You want to install Visual Studio Code (the name is abbreviated to Code).
+11. Install Docker too. We found teh version from teh package manager didn't work with VSCode. Instead from the terminal:
+```
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+```
+12. There a note saying that Docker will only be availabel to root users. To change this we need to do the following from the Terminal:
 ```
 sudo addgroup --system docker
 sudo adduser $USER docker
@@ -103,13 +114,13 @@ newgrp docker
 sudo snap disable docker
 sudo snap enable docker
 ```
-11. Reboot Ubuntu.
-12. Open Visual Studio Code
-13. From the start menu and select "Clone repository"
-14. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
-15. It will ask you if you want to open the repo as a project- do that.
-16. It will ask you if you want to repone the project in the Container. Select Yes.
-17. ANOTHER ERROR! "Docker returned an error. Make sure the Docker daemon is running."
+13. Reboot Ubuntu.
+14. Open Visual Studio Code
+15. From the start menu and select "Clone repository"
+16. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
+17. It will ask you if you want to open the repo as a project- do that.
+18. It will ask you if you want to repone the project in the Container. Select Yes.
+19. ANOTHER ERROR! "Docker returned an error. Make sure the Docker daemon is running."
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
