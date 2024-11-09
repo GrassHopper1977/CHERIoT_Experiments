@@ -102,7 +102,7 @@ sudo snap enable docker
 18. It will ask you if you want to repone the project in the Container. Select Yes.
 19. Now wait with crossed fingers...
 
-### Building the Code Examples
+## Building the Code Examples
 1. Open the `examples` folder.
 2. Read `README.md` for an explanation of each of the examples.
 3. We're going to try to run example 1: `01.hello_world`
