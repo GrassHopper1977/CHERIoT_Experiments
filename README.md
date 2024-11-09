@@ -63,6 +63,7 @@ We're attempting to follow teh instructions from [From zero to CHERIoT in two mi
 10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt. I've beeb closing and reopening Visual Studio Code to get around this but I'm sure there's a shortcut for it - I just haven't had a chance to look yet. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
 
 ## Installing on Windows with a Virtual Machine
+We used Ubuntu V24.04 for this.
 1. Download & install Python (needed for VirtualBox).
 2. Reboot the computer.
 3. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
