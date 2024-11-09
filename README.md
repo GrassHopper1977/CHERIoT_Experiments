@@ -84,8 +84,11 @@ error: /workspaces/cheriot-rtos/sdk/include/cheri.hh:12:10: fatal error: 'magic_
 
 ## Installing on Windows with a Virtual Machine
 1. Download & install Python (needed for VirtualBox).
-2. Downlaod and install VirtualBox.
-3. 
+2. Reboot the computer.
+3. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+4. Start VirtualBox (it will probably start automatically).
+5. There's detailed instructions on installing Ubuntu on VirtualBox [here](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview).
+6. 
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
