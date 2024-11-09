@@ -120,7 +120,8 @@ sudo snap enable docker
 16. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
 17. It will ask you if you want to open the repo as a project- do that.
 18. It will ask you if you want to repone the project in the Container. Select Yes.
-19. ANOTHER ERROR! "Docker returned an error. Make sure the Docker daemon is running."
+19. Now wait with crossed fingers...
+20. 
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
