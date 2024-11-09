@@ -16,7 +16,7 @@ Note: The main source of information for this section is the [Updating the Sonat
 11. Next you will need to setup the IDE to program the device.
 
 # Installing Development Environment on Windows
-I'm not ashamed to admit that I use Visual Studio Code on Windows as my preferred IDE (I just have too many other programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up the Sonata Board and the IDE but they don't all appear to be updated. I'm just documenting everything here so that I don't forget it for next time.
+I'm not ashamed to admit that I use Visual Studio Code on Windows as my preferred IDE (I just have too many other programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up the Sonata Board and the IDE but they don't all appear to be updated. I'm just documenting everything here so that I don't forget it for next time. Sadly, it's not as easy as cloning from Visual Studio Code as that doesn't work, instead we have to clone from Windows Subsystem for Linux.
 
 ## Sources of help and information
 1. [Getting started with the Sonata board](https://lowrisc.github.io/sonata-system/doc/guide/index.html) This is the main documentation for the Sonata board and should be kept up to date.
@@ -44,23 +44,42 @@ wsl --install
 3. Turn on Windows Developer mode as described [here](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development). We're not 100% sure it is needed but it enables symlinks, which may be needed.
 
 ### Setting Up the Toolchain
-We're attempting to follow teh instructions from [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html).
-1. Open Visual Studio Code.
-2. Select 'Clone Git Repository' and clone the `cheriot-rtos` repository (https://github.com/CHERIoT-Platform/cheriot-rtos.git).
-3. Select a destination for the code and save. Visual Studio Code will ask you if you want to `Reopen in container` so select OK. Note: If Docker isn't running, it will return an error.
-4. Contecting to the container can take a while the first time that you do it.
-5. You may get a warning about unsafe repositories, you can click on it and choose to to allow all of them (I get two: `microvium` and `magic-enum`).
-6. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
-7. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
-8. The code that we are adding should look something like this:
+1. If you haven't installed WSL go back and do that.
+2. Make sure that Docker is already running (open it from the Start menu).
+3. Got to Start menu, type "Ubuntu" and open it.
+4. We're just going to make sure that the line ending don't get messed with by excuting: `git config --global core.autocrlf false`
+5. You will be in your home folder. Create a folder for GitHub repos, move to that folder and clone the code there, move into that folder and run VSCode:
+```
+mkdir github
+cd github
+git clone --recursive https://github.com/CHERIoT-Platform/cheriot-rtos.git
+cd cheriot-rtos/
+code .
+```
+6. The last command may install a package in order to be able to launch VSCode before it continues but it will launch VSCode.
+7. Visual Studio Code will ask you if you want to `Reopen in container` so select OK. Note: If Docker isn't running, it will return an error.
+8. Contecting to the container can take a while the first time that you do it.
+9. You shouldn't get a wrning about unsafe repositories if you open it this way (if you just open it through Windows then you will - it probably won't work if this happens, even if you accept the repositories as safe).
+10. We're just going to check that we can build first. Go to the terminal at teh bottom of teh screen and enter teh following:
+```
+cd tests/
+xmake config --sdk=/cheriot-tools --board=sonata
+xmake
+xmake run
+```
+11. You now will find a uf2 file in teh foldr that can be manually copied onto your Sonata board.
+12. We should be able to do better than that though by getting VSCode to mount the Sonata baord and automatically copying the file across after compiling.
+13. FROM HERE IT IS NOT YET TESTED
+14. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
+15. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
+16. The code that we are adding should look something like this:
 ```
 "mounts": [
     "source=/Volumes/SONATA,target=/mnt/SONATA,type=bind"
 ]
 ```
-8. `source` should remain as `/Volumes/SONATA`
-9. `target` should be altered to point to the SONATA device. In my case it is mounted as drive D. If we place `D:` here it fails. This is what we intend to use WSL to try to solve.
-10. When we save this file it will attempt to rebuild the container. We may have to use the option `Edit devcontainer.json Locally` option to get it to work. If you do that it will open the code locally and not in the container so changes won't automatically get rebuilt. I've beeb closing and reopening Visual Studio Code to get around this but I'm sure there's a shortcut for it - I just haven't had a chance to look yet. You can remove the `mount` section entirely until you are ready to have a go at fixing it. You'll just have manually copy the files across to the SONATA drive.
+17. `source` should remain as `/Volumes/SONATA`
+18. `target` should be altered to point to the SONATA device. In my case it is mounted as drive `D`. If we place `D:` here it fails. We should be able to create a mount point here to point to `D:` and get around this issue.
 
 ## Installing on Windows with a Virtual Machine
 We used Ubuntu V24.04 for this.
