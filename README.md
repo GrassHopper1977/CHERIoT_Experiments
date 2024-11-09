@@ -95,13 +95,21 @@ sudo apt-get install git
 ```
 8. There is an install menu. You want to install Visual Studio Code (the name is abbreviated to Code).
 9. Install Docker too.
-10. Reboot Ubuntu.
-11. Open Visual Studio Code
-12. From the start menu and select "Clone repository"
-13. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
-14. It will ask you if you want to open the repo as a project- do that.
-15. It will ask you if you want to repone teh project in the Container. Select Yes.
-16. 
+10. There a note saying that Docker will only be availabel to root users. To change this we need to do the following from the Terminal:
+```
+sudo addgroup --system docker
+sudo adduser $USER docker
+newgrp docker
+sudo snap disable docker
+sudo snap enable docker
+```
+11. Reboot Ubuntu.
+12. Open Visual Studio Code
+13. From the start menu and select "Clone repository"
+14. Clone the repo "https://github.com/CHERIoT-Platform/cheriot-rtos.git".
+15. It will ask you if you want to open the repo as a project- do that.
+16. It will ask you if you want to repone the project in the Container. Select Yes.
+17. 
 
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
