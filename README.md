@@ -152,3 +152,7 @@ For things that don't love in the same repo as the RTOS, you can reuse the dev c
 
 But for device drivers, I like it when people upstream things, and so having that in the RTOS is nice.
 ```
+This note from Phil:
+```
+I work in a fork of cheriot-demos, which comes with  dev container, submodules for rtos and the network stack, and a few examples of creating things that work with Sonata
+```
