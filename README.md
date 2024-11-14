@@ -139,3 +139,16 @@ xmake run
 ## Terminal Access
 After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
 There doesn't appear to be an output on any of these terminals so I may have the buad rate incorrect.
+
+## Creating a Blank Repo for Working With
+I've not tried this yet but I've been given this note from Adam:
+```
+In terms of a repo for an empty project, it's fairly easy to make one. Add cheriot-rtos as a submodule and point xmake.lua to it (lines 9-10 in the repo I'm going to link). I need to bump RTOS to the latest version in this repo, just run "git submodule update --remote" if you try this out.
+https://github.com/3bian/3bian-sonata-empty-project
+```
+I've beeng iven this note from David Chisnall:
+```
+For things that don't love in the same repo as the RTOS, you can reuse the dev container (you don't need to fork the RTOS, just reference the same dev container).
+
+But for device drivers, I like it when people upstream things, and so having that in the RTOS is nice.
+```
