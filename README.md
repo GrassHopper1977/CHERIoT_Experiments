@@ -137,7 +137,7 @@ xmake run
 7. This works on the Virtual Machine on Ubuntu. It doesn't on my Windows desktop though. I suspect a CRLF issue but I just can't seem to fix it.
 
 ## Terminal Access
-After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 115200 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
+After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 921600 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
 There doesn't appear to be an output on any of these terminals so I may have the buad rate incorrect.
 
 ## Creating a Blank Repo for Working With
