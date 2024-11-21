@@ -60,17 +60,17 @@ code .
 7. Visual Studio Code will ask you if you want to `Reopen in container` so select OK. Note: If Docker isn't running, it will return an error.
 8. Contecting to the container can take a while the first time that you do it.
 9. You shouldn't get a wrning about unsafe repositories if you open it this way (if you just open it through Windows then you will - it probably won't work if this happens, even if you accept the repositories as safe).
-10. We're just going to check that we can build first. Go to the terminal at teh bottom of teh screen and enter teh following:
+10. We're just going to check that we can build first. Go to the terminal at the bottom of the screen and enter the following:
 ```
 cd tests/
 xmake config --sdk=/cheriot-tools --board=sonata
 xmake
 xmake run
 ```
-11. You now will find a uf2 file in teh foldr that can be manually copied onto your Sonata board.
+11. You now will find a uf2 file in the foldr that can be manually copied onto your Sonata board.
 12. We should be able to do better than that though by getting VSCode to mount the Sonata baord and automatically copying the file across after compiling.
 13. FROM HERE IT IS NOT YET TESTED
-14. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on teh left of the screen).
+14. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on the left of the screen).
 15. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
 16. The code that we are adding should look something like this:
 ```
@@ -96,7 +96,7 @@ We used Ubuntu V24.04 for this.
 sudo apt-get install git
 ```
 10. There is an install menu. You want to install Visual Studio Code (the name is abbreviated to Code).
-11. Install Docker too. We found teh version from teh package manager didn't work with VSCode. Instead from the terminal:
+11. Install Docker too. We found the version from the package manager didn't work with VSCode. Instead from the terminal:
 ```
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -137,8 +137,8 @@ xmake run
 7. This works on the Virtual Machine on Ubuntu. It doesn't on my Windows desktop though. I suspect a CRLF issue but I just can't seem to fix it.
 
 ## Terminal Access
-After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For ne they are COM8, COM9 and COM10. I used PuTTY to connect to them at 921600 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
-There doesn't appear to be an output on any of these terminals so I may have the buad rate incorrect.
+After connecting the Sonata, you may notice that 3 COM ports have appeared (have a look in Device Manager to get the name. For me they are COM8, COM9 and COM10. I used PuTTY to connect to them at 921600 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings, as this is often needed.
+The console output appears to be on COM9.
 
 ## Creating a Blank Repo for Working With
 I've not tried this yet but I've been given this note from Adam:
@@ -146,7 +146,7 @@ I've not tried this yet but I've been given this note from Adam:
 In terms of a repo for an empty project, it's fairly easy to make one. Add cheriot-rtos as a submodule and point xmake.lua to it (lines 9-10 in the repo I'm going to link). I need to bump RTOS to the latest version in this repo, just run "git submodule update --remote" if you try this out.
 https://github.com/3bian/3bian-sonata-empty-project
 ```
-I've beeng iven this note from David Chisnall:
+I've been given this note from David Chisnall:
 ```
 For things that don't love in the same repo as the RTOS, you can reuse the dev container (you don't need to fork the RTOS, just reference the same dev container).
 
