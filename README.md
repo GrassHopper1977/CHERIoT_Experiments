@@ -2,6 +2,7 @@
 Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRISC. This is not intended to be any kind of replacement for the official documentation, it's more of a historical document for us during our experiments with the Sonata board but it may be of use to some.
 
 # Setting Up Your Sonata Board
+[Setting Up Your Sonata Board](setup.md)
 Note: The main source of information for this section is the [Updating the Sonata System](https://lowrisc.github.io/sonata-system/doc/guide/updating-system.html). [This page](https://github.com/lowRISC/sonata-system/releases/tag/v0.2) is for an earlier release of the Sonata Baord but describes the process of getting the device to display test code in detail.
 1. Browse to the [Sonata System Releases Page](https://github.com/lowRISC/sonata-system/releases).
 2. Download the file with the name like `rpi_rp2_v0.X.uf2`.
