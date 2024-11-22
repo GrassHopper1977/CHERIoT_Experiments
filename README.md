@@ -21,7 +21,7 @@ This is how to setup Visual Studio code on Windows for development.
 After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. I used PuTTY to connect to them at 921600 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings (it eliminates any ambiguity caused by the whole [Windows/Linux line endings debate](https://en.wikipedia.org/wiki/Newline#History)).
 The console output appears to be on COM9.
 
-## Creating a Blank Repo for Working With
+## Creating a Repo for Working With
 I've not tried this yet but I've been given this note from Adam:
 ```
 In terms of a repo for an empty project, it's fairly easy to make one. Add cheriot-rtos as a submodule and point xmake.lua to it (lines 9-10 in the repo I'm going to link). I need to bump RTOS to the latest version in this repo, just run "git submodule update --remote" if you try this out.
