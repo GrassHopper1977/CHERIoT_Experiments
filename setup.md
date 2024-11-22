@@ -1,6 +1,6 @@
 # Setting Up Your Sonata Board
 Note: The main source of information for this section is the [Updating the Sonata System](https://lowrisc.github.io/sonata-system/doc/guide/updating-system.html). [This page](https://github.com/lowRISC/sonata-system/releases/tag/v0.2) is for an earlier release of the Sonata Baord but describes the process of getting the device to display test code in detail.
-1. Browse to the [Sonata System Releases Page](https://github.com/lowRISC/sonata-system/releases).
+1. Browse to the [Sonata System Releases Page](https://github.com/lowRISC/sonata-system/releases). Please bare in mind that, if you are planning on using the [CHERIoT RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos), [CHERIoT Network](https://github.com/CHERIoT-Platform/network-stack) or [CHERIoT Demos](https://github.com/CHERIoT-Platform/cheriot-demos) then you will need to use [V0.2.0](https://github.com/lowRISC/sonata-system/releases/tag/v0.2) instead of any of the later versions.
 2. Download the file with the name like `rpi_rp2_v0.X.uf2`.
 3. Also download the file with the name like `sonata-vX.Y.bit.slot1.uf2`.
 4. Ensure that SW3 is set to `1` to so that we run from slot 1 in a minute.
