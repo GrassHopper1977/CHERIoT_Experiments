@@ -52,7 +52,7 @@ xmake run
 ```
 11. You now will find a uf2 file in the foldr that can be manually copied onto your Sonata board.
 12. We should be able to do better than that though by getting VSCode to mount the Sonata baord and automatically copying the file across after compiling.
-13. FROM HERE IT IS NOT YET TESTED
+13. FROM HERE IT IS NOT YET TESTED - We still haven't got the mount working properly on Windows.
 14. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on the left of the screen).
 15. We want to add a mount section to the end of the file to allow us to automatically deploy any projects that we build.
 16. The code that we are adding should look something like this:
@@ -118,4 +118,5 @@ xmake config --sdk=/cheriot-tools --board=sonata
 xmake
 xmake run
 ```
-8. You will find teh output file (*.uf2) in teh following location: ```\\wsl.localhost\Ubuntu\home\[USERNAME]\github\cheriot-rtos\examples\01.hello_world\build\cheriot\cheriot\release```
+8. You will find the output file (firmware.uf2) in the following location: ```\\wsl.localhost\Ubuntu\home\[USERNAME]\github\cheriot-rtos\examples\01.hello_world\build\cheriot\cheriot\release```
+9. If you copy that on to the SONATA drive and it will automatically reprogram the device and the code will run.
