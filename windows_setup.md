@@ -50,7 +50,7 @@ xmake config --sdk=/cheriot-tools --board=sonata
 xmake
 xmake run
 ```
-11. You now will find a uf2 file in the foldr that can be manually copied onto your Sonata board.
+11. You now will find a firmware.uf2 file in the foldr that can be manually copied onto your Sonata board.
 12. We should be able to do better than that though by getting VSCode to mount the Sonata baord and automatically copying the file across after compiling.
 13. FROM HERE IT IS NOT YET TESTED - We still haven't got the mount working properly on Windows.
 14. Now we need to edit the `.devcontainer\devcontainer.json` file (look in the solution explorer on the left of the screen).
