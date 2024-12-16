@@ -38,7 +38,7 @@ This note from Phil:
 I work in a fork of cheriot-demos, which comes with  dev container, submodules for rtos and the network stack, and a few examples of creating things that work with Sonata
 ```
 
-## Using the Sonata hardware
-### The Joystick, LEDs and RGB LED
+# Using the Sonata hardware
+## The Joystick, LEDs and RGB LED
 I have created an example [here](https://github.com/GrassHopper1977/cheriot-rtos-sonata-hardware/tree/main/experiments/01.general_io) that demostrates reading from the build-in hardware (in this case, the joystick controller) and writing to the built-in LEDs and RGB LED.
 Note: These were written for V0.2. If you want to use the PinMux (pin multiplexor - used to switch to alternate pin functions) then we will need to use a more recent version of the FPGA design (the bitfile).
