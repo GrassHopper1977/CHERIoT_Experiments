@@ -87,4 +87,11 @@ code .
         },
 ```
 6. We're going to want to use this file.
-7. 
+7. We will need to change our code to build using this board description file to access the GPIO. We will alos need to target the pre-release of V1.0 of the bitfile.
+8. When we build we will use these instructions (notice how we've changed the board) whihc should allow us to build for the V1 prerelase bitfile:
+```
+xmake config --sdk=/cheriot-tools --board=sonata-prerelease
+xmake
+xmake run
+```
+9. 
