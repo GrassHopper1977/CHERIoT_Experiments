@@ -38,7 +38,53 @@ This note from Phil:
 I work in a fork of cheriot-demos, which comes with  dev container, submodules for rtos and the network stack, and a few examples of creating things that work with Sonata
 ```
 
-# Using the Sonata hardware
+# Using the Sonata hardware (before V1)
 ## The Joystick, LEDs and RGB LED
 I have created an example [here](https://github.com/GrassHopper1977/cheriot-rtos-sonata-hardware/tree/main/experiments/01.general_io) that demostrates reading from the build-in hardware (in this case, the joystick controller) and writing to the built-in LEDs and RGB LED.
 Note: These were written for V0.2. If you want to use the PinMux (pin multiplexor - used to switch to alternate pin functions) then we will need to use a more recent version of the FPGA design (the bitfile).
+## Accessing the Raspberry Pi GPIO header
+1. There is no access to this on V0.2 so we will need to move to teh pre-release of V1. The corresponding code for this can be found in lowRISC's fork of Cheriot-RTOS. We can start by cloning this repo and then switching to the Sonata branch: [https://github.com/CHERIoT-Platform/cheriot-rtos.git](https://github.com/lowRISC/cheriot-rtos.git)
+Then we can check it out recursively from WSL and then switch to the "Sonata" branch:
+```
+git clone --recursive https://github.com/lowRISC/cheriot-rtos.git
+cd cheriot-rtos
+code .
+```
+2. As VSCode is opening the repo select the "reopne in container" option that you will be offered. Note: If you've been playing with anotehr fork of "cheriot-rtos" without renaming it and you left the container there you may get errors. Simply delete the offending container and it will create a new one and you're good to go.
+3. Now we need to target for teh pre-release of V1. First let's check the board files to make sure that we have access to the Pinmux and RPi header. A quick check of sdk/boards/sonata.json and sdk/boards/sonata-prerelease.json show that teh RPi header is not listed in the IO map. We will need to look on a different branch.
+4. Switch to the "sonata" branch. Looking in sdk/boards/sonata-prerelease.json we can now see the RPi, arduino and pmod header entries:
+```
+        "gpio_board" : {
+            "start" : 0x80000000,
+            "end"   : 0x80000010
+        },
+        "gpio_rpi" : {
+            "start" : 0x80000040,
+            "end"   : 0x80000050
+        },
+        "gpio_arduino" : {
+            "start" : 0x80000080,
+            "end"   : 0x80000090
+        },
+        "gpio_pmod0" : {
+            "start" : 0x800000C0,
+            "end"   : 0x800000D0
+        },
+        "gpio_pmod1": {
+            "start" : 0x80000100,
+            "end"   : 0x80000110
+        },
+        "gpio_pmodc": {
+            "start" : 0x80000140,
+            "end"   : 0x80000150
+        },
+```
+5. We can also see access to the Pinmux:
+```
+        "pinmux": {
+            "start" : 0x80005000,
+            "length": 0x00001000
+        },
+```
+6. We're going to want to use this file.
+7. 
