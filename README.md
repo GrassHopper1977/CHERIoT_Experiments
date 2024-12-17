@@ -97,3 +97,7 @@ xmake run
 9. Go and download the V1.0 firmwares from here: [https://github.com/lowRISC/sonata-system/releases](https://github.com/lowRISC/sonata-system/releases)
 10. Follow the instructions on that page to update the built-in R-Pi and the bitfile for the FPGA.
 11. Now we try to copy the firmware.uf2 across and it won't work because, for some reason, the file is 2GB! After much asking for help on teh Signal chat we've decided that I may need to use the `nix` system to build this instead.
+##Installing lowRISC/sonata-software instead and trying that instead
+1. Open your WSL & follow the instructions here to install Nix and learn how to build: [https://github.com/lowRISC/sonata-software/blob/main/doc/getting-started.md](https://github.com/lowRISC/sonata-software/blob/main/doc/getting-started.md)
+2. You'll note that you don't need to clone any repos yourself - it will do it for you.
+3. 
