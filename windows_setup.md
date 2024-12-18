@@ -142,6 +142,7 @@ xmake run
 Your Windows PC will need:
 1. Windows Subsystem for Linux (WSL). We used Ubuntu and it works with that. Our instructions can be found [here](#installing-wsl) but it is discussed in the Sonata Software instructions too.
 2. We've been using Visual Studio Code for the IDE and it works very well.
+3. Turn on Windows Developer mode as described here. We're not 100% sure it is needed but it enables symlinks, which may be needed.
 You do not need Docker for this version as it uses a system called Nix.
 ## Installation Procedure
 1. Just follow these instructions. It will talk you through installing WSL, Nix, cloning the repo (make sure to use the V1.0 branch or later to get acces to all the hardware blocks) and building the examples. [https://lowrisc.github.io/sonata-software/doc/getting-started.html](https://lowrisc.github.io/sonata-software/doc/getting-started.html)
