@@ -1,15 +1,25 @@
-# Installing Development Environment on Windows
-I'm not ashamed to admit that I use Visual Studio Code on Windows as my preferred IDE (I just have too many other programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up the Sonata Board and the IDE but they don't all appear to be updated. I'm just documenting everything here so that I don't forget it for next time. Sadly, it's not as easy as cloning from Visual Studio Code as that doesn't work, instead we have to clone from Windows Subsystem for Linux.
+# Windows Development Environment and Setup
+At teh time of writing, there are several repositories being maintained by different groups. They are all forked from [CHERIoT-Platform/cheriot-rtos](https://github.com/CHERIoT-Platform/cheriot-rtos). It can be difficult to work out which repositiory you should be using. My current understanding is:
+* CHERIoT-RTOS seem to be working on the operating system. The version also builds for other targets, such as the simulator (which we haven't played with yet).
+* lowRISC seem to be working on the hardware. The lowRISC repos and being updated for new version of the FPGA's bitfile (the CBHERI processot running in the FPGA) and for the Sonata Demo Board. If you want to use the latest hardware then these are the branches to use.
+At the time of writing, lowRISC had published a bitfile for V1.0 but the CHERIoT repos are still working on V0.2.
+  he plan is for the repositories to merge with the release of V1.0.
+  
+## Which Repository Should we Use?
+There is some discussion about this in this blog post from November 2024: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
+From our point-of-view it depends on what you are wanting to do (at the time of writing):
+* If you need teh external IO e.g. RPi header and the Pin Multiplexor (Pinmux) then you will need to use [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) following our instructions [here](#installing-the-lowriscsonata-software-development-environment-on-windows).
+* If you want to play with the build-in hardware: LCD, switches, joystick, RGB LED, status LEDs, networking (but not SD Card yet) then you can use [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) repository that we discuss [here](#installing-the-cheriot-platformcheriot-rtos-development-environment-on-windows).
+
+Our project requires accessing CAN-FD modules using the two SPI modules on the Raspberry Pi header. This means that we need access to the RPi header and to the Pinmux to make it work so we are now using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software). In terms of usability, I currently have a preference for the Nix based system of the [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) repository to work very well.
 
 ## Sources of help and information
 1. [Getting started with the Sonata board](https://lowrisc.github.io/sonata-system/doc/guide/index.html) This is the main documentation for the Sonata board and should be kept up to date.
 2. [Sonata Software - Getting started guide](https://lowrisc.github.io/sonata-software/doc/getting-started.html) This is the main documentation for the Sonata Software and should be kept up to date. This also includes a section on installing the IDE on Windows (using the Windows Subsystem for Linux).
-3. [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) This is the first one that I tried and it didn't work for me on Windows (it worked on an Ubuntu Virtual Machine though). I was unable to get it to build and it assumed that we had some other packages installed already. Do read this one carfully though, you'll notice that it uses the V0.2 firmware. If you try to use V0.4.1 then teh files that you build will not work! All that is wrong with this for Windows is that you can't use VSCOde to clone the repo - you have to use Git from WSL (see below for the full instructions).
+3. [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) This is the first one that I tried and it didn't work for me on Windows (it worked on an Ubuntu Virtual Machine though). I was unable to get it to build and it assumed that we had some other packages installed already. Do read this one carfully though, you'll notice that it uses the V0.2 firmware. If you try to use V0.4.1 then the files that you build will not work! All that is wrong with this for Windows is that you can't use VSCode to clone the repo - you have to use Git from WSL (see below for the [full instructions](#building-the-code-examples)).
+4. [Navigating the CHERIoT Ecosystem](https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html)
 
-## Installing on Windows
-We attempted to get the toolchain running on Windows following the [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) and found that it wasn't building and the connection to the drive wasn't working. A suggestion from [this page](https://github.com/orgs/CHERIoT-Platform/discussions/245) suggested using WSL (Windows Subsystem for Linux) for some parts of the install, so that's what we will be attempting. We're also going to attempt this on a fresh Windows 11 install to make life a bit easier.
-
-### Installing WSL
+## Installing WSL
 We need to install the Windows Subsystem for Linux.
 1. From the Start menu open Windows PowerShell and run it as Administrator.
 2. On a recent version of Windows it will defaul to installing Unbuntu when you run a following command. If you have any issues look at Mircosoft's detailed instructions that can be found [here](https://learn.microsoft.com/en-us/windows/wsl/install).
@@ -20,6 +30,12 @@ wsl --install
 4. After install, reboot your machine for it to finish the install.
 5. Click Start and find Ubuntu, and click it to start.
 6. The first time it will ask about a Unix username and password. We may need this for later.
+
+# Installing the CHERIoT-Platform/cheriot-rtos Development Environment on Windows
+I'm not ashamed to admit that I use Visual Studio Code on Windows as my preferred IDE (I just have too many other programs on there to be constantly switching back and forth with Linux). There are some user guides for setting up the Sonata Board and the IDE but they don't all appear to be updated. I'm just documenting everything here so that I don't forget it for next time. Sadly, it's not as easy as cloning from Visual Studio Code as that doesn't work, instead we have to clone from Windows Subsystem for Linux.
+
+## Installing on Windows
+We attempted to get the toolchain running on Windows following the [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) and found that it wasn't building and the connection to the drive wasn't working. A suggestion from [this page](https://github.com/orgs/CHERIoT-Platform/discussions/245) suggested using WSL (Windows Subsystem for Linux) for some parts of the install, so that's what we will be attempting. We're also going to attempt this on a fresh Windows 11 install to make life a bit easier. The WSL installation is discussed [here](#installing-wsl).
 
 ### Other Packages to have Installed
 1. Got to [Install Docker Desktop on Windows](https://docs.docker.com/desktop/setup/install/windows-install/) and follow the instructions.
@@ -120,3 +136,16 @@ xmake run
 ```
 8. You will find the output file (firmware.uf2) in the following location: ```\\wsl.localhost\Ubuntu\home\[USERNAME]\github\cheriot-rtos\examples\01.hello_world\build\cheriot\cheriot\release```
 9. If you copy that on to the SONATA drive and it will automatically reprogram the device and the code will run.
+
+# Installing the lowRISC/sonata-software Development Environment on Windows
+## Pre-requistites
+Your Windows PC will need:
+1. Windows Subsystem for Linux (WSL). We used Ubuntu and it works with that. Our instructions can be found [here](#installing-wsl) but it is discussed in the Sonata Software instructions too.
+2. We've been using Visual Studio Code for the IDE and it works very well.
+You do not need Docker for this version as it uses a system called Nix.
+## Installation Procedure
+1. Just follow these instructions. It will talk you through installing WSL, Nix, cloning the repo (make sure to use the V1.0 branch or later to get acces to all the hardware blocks) and building the examples. [https://lowrisc.github.io/sonata-software/doc/getting-started.html](https://lowrisc.github.io/sonata-software/doc/getting-started.html)
+2. In the WSL (Ubuntu) you can browse to the folder and type ```code .``` to open teh folder in VSCode.
+3. The xmake doesn't automatically try to copy the file onto the SONATA drive but that has never worked correctly on Windows anyway.
+4. You should follow the tutorial to the point that you can build the Example code. If you have time, do the exercises.
+5. The documentation for accessing teh Sonata's IO is a bit vague in places so we're documenting it as we go.
