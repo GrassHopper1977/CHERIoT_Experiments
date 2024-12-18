@@ -2,8 +2,8 @@
 At teh time of writing, there are several repositories being maintained by different groups. They are all forked from [CHERIoT-Platform/cheriot-rtos](https://github.com/CHERIoT-Platform/cheriot-rtos). It can be difficult to work out which repositiory you should be using. Our current understanding is:
 * CHERIoT-Platform seem to be working on the operating system. The version also builds for other targets, such as the simulator (which we haven't played with yet).
 * lowRISC seem to be working on the hardware. The lowRISC repos and being updated for new version of the FPGA's bitfile (the CBHERI processot running in the FPGA) and for the Sonata Demo Board. If you want to use the latest hardware then these are the branches to use.
-At the time of writing, lowRISC had published a bitfile for V1.0 but the CHERIoT repos are still working on V0.2.
-  he plan is for the repositories to merge with the release of V1.0.
+
+At the time of writing, lowRISC had published a bitfile for V1.0 but the CHERIoT repos are still working on V0.2. The plan is for the repositories to merge with the release of V1.0.
   
 ## Which Repository Should we Use?
 There is some discussion about this in this blog post from November 2024: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
