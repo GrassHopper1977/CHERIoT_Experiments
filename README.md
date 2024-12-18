@@ -18,8 +18,9 @@ This is how to setup Visual Studio code on Windows for development.
 
 
 ## Terminal Access
-After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. I used PuTTY to connect to them at 921600 buad, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings (it eliminates any ambiguity caused by the whole [Windows/Linux line endings debate](https://en.wikipedia.org/wiki/Newline#History)).
-The console output appears to be on COM9.
+After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. 
+The buad rate depnds on which repositiry you use. If you are using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) then it will be 921600bps. If you are using [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) then it will be 115200bps. I used PuTTY to connect to them at the required bit rate, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings (it eliminates any ambiguity caused by the whole [Windows/Linux line endings debate](https://en.wikipedia.org/wiki/Newline#History)).
+The console output appears to be on COM9 for us.
 
 ## Creating a Repo for Working With
 I've not tried this yet but I've been given this note from Adam:
@@ -29,7 +30,7 @@ https://github.com/3bian/3bian-sonata-empty-project
 ```
 I've been given this note from David Chisnall:
 ```
-For things that don't love in the same repo as the RTOS, you can reuse the dev container (you don't need to fork the RTOS, just reference the same dev container).
+For things that don't live in the same repo as the RTOS, you can reuse the dev container (you don't need to fork the RTOS, just reference the same dev container).
 
 But for device drivers, I like it when people upstream things, and so having that in the RTOS is nice.
 ```
@@ -42,17 +43,10 @@ I work in a fork of cheriot-demos, which comes with  dev container, submodules f
 ## The Joystick, LEDs and RGB LED
 I have created an example [here](https://github.com/GrassHopper1977/cheriot-rtos-sonata-hardware/tree/main/experiments/01.general_io) that demostrates reading from the build-in hardware (in this case, the joystick controller) and writing to the built-in LEDs and RGB LED.
 Note: These were written for V0.2. If you want to use the PinMux (pin multiplexor - used to switch to alternate pin functions) then we will need to use a more recent version of the FPGA design (the bitfile).
+# Using the Sonata hardware (V1 and later)
 ## Accessing the Raspberry Pi GPIO header
-1. There is no access to this on V0.2 so we will need to move to teh pre-release of V1. The corresponding code for this can be found in lowRISC's fork of Cheriot-RTOS. We can start by cloning this repo and then switching to the Sonata branch: [https://github.com/CHERIoT-Platform/cheriot-rtos.git](https://github.com/lowRISC/cheriot-rtos.git)
-Then we can check it out recursively from WSL and then switch to the "Sonata" branch:
-```
-git clone --recursive https://github.com/lowRISC/cheriot-rtos.git
-cd cheriot-rtos
-code .
-```
-2. As VSCode is opening the repo select the "reopne in container" option that you will be offered. Note: If you've been playing with anotehr fork of "cheriot-rtos" without renaming it and you left the container there you may get errors. Simply delete the offending container and it will create a new one and you're good to go.
-3. Now we need to target for teh pre-release of V1. First let's check the board files to make sure that we have access to the Pinmux and RPi header. A quick check of sdk/boards/sonata.json and sdk/boards/sonata-prerelease.json show that teh RPi header is not listed in the IO map. We will need to look on a different branch.
-4. Switch to the "sonata" branch. Looking in sdk/boards/sonata-prerelease.json we can now see the RPi, arduino and pmod header entries:
+1. There is no access to this on V0.2 so we will need to move to the pre-release of V1. For this to work we had to switch to a different repo using [these instructions](https://github.com/GrassHopper1977/CHERIoT_Experiments/blob/main/windows_setup.md#installing-the-lowriscsonata-software-development-environment-on-windows). 
+2. Switch to the "sonata" branch. Looking in sdk/boards/sonata-prerelease.json we can now see the RPi, arduino and pmod header entries:
 ```
         "gpio_board" : {
             "start" : 0x80000000,
@@ -79,25 +73,95 @@ code .
             "end"   : 0x80000150
         },
 ```
-5. We can also see access to the Pinmux:
+3. We can also see access to the Pinmux:
 ```
         "pinmux": {
             "start" : 0x80005000,
             "length": 0x00001000
         },
 ```
-6. We're going to want to use this file.
-7. We will need to change our code to build using this board description file to access the GPIO. We will alos need to target the pre-release of V1.0 of the bitfile.
-8. When we build we will use these instructions (notice how we've changed the board) whihc should allow us to build for the V1 prerelase bitfile:
+4. We're going to want to use this file.
+5. We create a new folder and copy an existing xmake.lua into it which we can then modfiy to suit our purpose.
+6. In our example, we're going to execute `xmake` from within the source folder.
+7. Our program entry point is called `main_entry()`, our first compartment is called `main_comp` (we couldn't think of anything else for this test) and our file is called `general_io.cc`.
+8. We've altered our `xmake.lua` file to read as follows (we left the copyright in as we are "standing on the shoulders of giants"):
 ```
-xmake config --sdk=/cheriot-tools --board=sonata-prerelease
-xmake
-xmake run
+-- Copyright lowRISC Contributors.
+-- SPDX-License-Identifier: Apache-2.0
+
+set_project("Sonata General IO examples")
+sdkdir = "../../cheriot-rtos/sdk"
+includes(sdkdir)
+set_toolchains("cheriot-clang")
+
+includes(path.join(sdkdir, "lib"))
+--includes("../../libraries")
+includes("../../common.lua")
+
+option("board")
+    set_default("sonata-prerelease")
+
+compartment("main_comp")
+    add_deps("debug")
+    add_files("general_io.cc")
+
+firmware("general_io")
+    add_deps("freestanding", "main_comp")
+    on_load(function(target)
+        target:values_set("board", "$(board)")
+        target:values_set("threads", {
+            {
+                compartment = "main_comp",
+                priority = 2,
+                entry_point = "main_entry",
+                stack_size = 0x200,
+                trusted_stack_frames = 1
+            },
+        }, {expand = false})
+    end)
+    after_link(convert_to_uf2)
 ```
-9. Go and download the V1.0 firmwares from here: [https://github.com/lowRISC/sonata-system/releases](https://github.com/lowRISC/sonata-system/releases)
-10. Follow the instructions on that page to update the built-in R-Pi and the bitfile for the FPGA.
-11. Now we try to copy the firmware.uf2 across and it won't work because, for some reason, the file is 2GB! After much asking for help on teh Signal chat we've decided that I may need to use the `nix` system to build this instead.
-##Installing lowRISC/sonata-software instead and trying that instead
-1. Open your WSL & follow the instructions here to install Nix and learn how to build: [https://github.com/lowRISC/sonata-software/blob/main/doc/getting-started.md](https://github.com/lowRISC/sonata-software/blob/main/doc/getting-started.md)
-2. You'll note that you don't need to clone any repos yourself - it will do it for you.
-3. 
+9. Let's break down the meaning of each section:
+Theese lines gives it a title, includes the SDK directory in the cheriot-rtos sub module and sets up the `clang` toolchain.
+```
+set_project("Sonata General IO examples")
+sdkdir = "../../cheriot-rtos/sdk"
+includes(sdkdir)
+set_toolchains("cheriot-clang")
+```
+The following lines include the library functions and the `common.lua` script which gives us access to the `convert_to_uf` which is called at the end.
+```
+includes(path.join(sdkdir, "lib"))
+--includes("../../libraries")
+includes("../../common.lua")
+```
+The following sets us to the pre-release board description file, giving us access to all teh external IO (RPi header, Pinmux, etc).
+```
+option("board")
+    set_default("sonata-prerelease")
+```
+The following says, "The compartment `main_comp` is dependant on `debug` and includes the file `general_io.cc`":
+```
+compartment("main_comp")
+    add_deps("debug")
+    add_files("general_io.cc")
+```
+These lines say, "Create file called `generl_io` depndant on the `main_comp` compartment and `freestanding` (I don't know what that is yet but it appears to be needed). Compile using the board description that we gave earlier. There is one thread based in the 'main_comp' compartment and it's entry point is `main_entry`." It also sets up the thread priority, stack size and `trusted_stack_frames` (not sure what that is yet). The last line calls the `convert_to_uf2` function in `common.lua` to build 3 versions of the UF2 file - one for each of the three memory slots.
+```
+firmware("general_io")
+    add_deps("freestanding", "main_comp")
+    on_load(function(target)
+        target:values_set("board", "$(board)")
+        target:values_set("threads", {
+            {
+                compartment = "main_comp",
+                priority = 2,
+                entry_point = "main_entry",
+                stack_size = 0x200,
+                trusted_stack_frames = 1
+            },
+        }, {expand = false})
+    end)
+    after_link(convert_to_uf2)
+```
+10. Hello
