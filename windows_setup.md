@@ -1,5 +1,5 @@
 # Windows Development Environment and Setup
-At teh time of writing, there are several repositories being maintained by different groups. They are all forked from [CHERIoT-Platform/cheriot-rtos](https://github.com/CHERIoT-Platform/cheriot-rtos). It can be difficult to work out which repositiory you should be using. Our current understanding is:
+At the time of writing, there are several repositories being maintained by different groups. They are all forked from [CHERIoT-Platform/cheriot-rtos](https://github.com/CHERIoT-Platform/cheriot-rtos). It can be difficult to work out which repositiory you should be using. Our current understanding is:
 * CHERIoT-Platform seem to be working on the operating system. The version also builds for other targets, such as the simulator (which we haven't played with yet).
 * lowRISC seem to be working on the hardware. The lowRISC repos and being updated for new version of the FPGA's bitfile (the CBHERI processot running in the FPGA) and for the Sonata Demo Board. If you want to use the latest hardware then these are the branches to use.
 
@@ -8,7 +8,7 @@ At the time of writing, lowRISC had published a bitfile for V1.0 but the CHERIoT
 ## Which Repository Should we Use?
 There is some discussion about this in this blog post from November 2024: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
 From our point-of-view it depends on what you are wanting to do (at the time of writing):
-* If you need teh external IO e.g. RPi header and the Pin Multiplexor (Pinmux) then you will need to use [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) following our instructions [here](#installing-the-lowriscsonata-software-development-environment-on-windows).
+* If you need the external IO e.g. RPi header and the Pin Multiplexor (Pinmux) then you will need to use [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) following our instructions [here](#installing-the-lowriscsonata-software-development-environment-on-windows).
 * If you want to play with the build-in hardware: LCD, switches, joystick, RGB LED, status LEDs, networking (but not SD Card yet) then you can use [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) repository that we discuss [here](#installing-the-cheriot-platformcheriot-rtos-development-environment-on-windows).
 
 Our project requires accessing CAN-FD modules using the two SPI modules on the Raspberry Pi header. This means that we need access to the RPi header and to the Pinmux to make it work so we are now using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software). In terms of usability, I currently have a preference for the Nix based system of the [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) repository to work very well.
@@ -145,7 +145,7 @@ Your Windows PC will need:
 You do not need Docker for this version as it uses a system called Nix.
 ## Installation Procedure
 1. Just follow these instructions. It will talk you through installing WSL, Nix, cloning the repo (make sure to use the V1.0 branch or later to get acces to all the hardware blocks) and building the examples. [https://lowrisc.github.io/sonata-software/doc/getting-started.html](https://lowrisc.github.io/sonata-software/doc/getting-started.html)
-2. In the WSL (Ubuntu) you can browse to the folder and type ```code .``` to open teh folder in VSCode.
+2. In the WSL (Ubuntu) you can browse to the folder and type ```code .``` to open the folder in VSCode.
 3. The xmake doesn't automatically try to copy the file onto the SONATA drive but that has never worked correctly on Windows anyway.
 4. You should follow the tutorial to the point that you can build the Example code. If you have time, do the exercises.
-5. The documentation for accessing teh Sonata's IO is a bit vague in places so we're documenting it as we go.
+5. The documentation for accessing the Sonata's IO is a bit vague in places so we're documenting it as we go.
