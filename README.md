@@ -43,10 +43,11 @@ I work in a fork of cheriot-demos, which comes with  dev container, submodules f
 ## The Joystick, LEDs and RGB LED
 I have created an example [here](https://github.com/GrassHopper1977/cheriot-rtos-sonata-hardware/tree/main/experiments/01.general_io) that demostrates reading from the build-in hardware (in this case, the joystick controller) and writing to the built-in LEDs and RGB LED.
 Note: These were written for V0.2. If you want to use the PinMux (pin multiplexor - used to switch to alternate pin functions) then we will need to use a more recent version of the FPGA design (the bitfile).
+
 # Using the Sonata hardware (V1 and later)
 ## Accessing the Raspberry Pi GPIO header
 1. There is no access to this on V0.2 so we will need to move to the pre-release of V1. For this to work we had to switch to a different repo using [these instructions](https://github.com/GrassHopper1977/CHERIoT_Experiments/blob/main/windows_setup.md#installing-the-lowriscsonata-software-development-environment-on-windows). 
-2. Switch to the "sonata" branch. Looking in sdk/boards/sonata-prerelease.json we can now see the RPi, arduino and pmod header entries:
+2. Switch to the "V1.0" branch. Looking in sdk/boards/sonata-prerelease.json we can now see the RPi, arduino and pmod header entries:
 ```
         "gpio_board" : {
             "start" : 0x80000000,
@@ -135,7 +136,7 @@ includes(path.join(sdkdir, "lib"))
 --includes("../../libraries")
 includes("../../common.lua")
 ```
-The following sets us to the pre-release board description file, giving us access to all teh external IO (RPi header, Pinmux, etc).
+The following sets us to the pre-release board description file, giving us access to all the external IO (RPi header, Pinmux, etc).
 ```
 option("board")
     set_default("sonata-prerelease")
@@ -164,4 +165,6 @@ firmware("general_io")
     end)
     after_link(convert_to_uf2)
 ```
-10. Hello
+## Example of Accessing RPi IO and using the PWM functions
+We've created a simple example of using these [here](https://github.com/GrassHopper1977/sonata-software/tree/IO_Experiments/experiments/01.general_io).
+Note: On V1.0, only PWM0 works. This is due to be fixed in V1.1. There is some test code for testing all the PWM outputs [here](https://github.com/GrassHopper1977/sonata-software/tree/IO_Experiments/experiments/02.pwm_outputs). The code also demostrates using the Arduino, PMOD and mikroBUS connectors for PWM outputs.
