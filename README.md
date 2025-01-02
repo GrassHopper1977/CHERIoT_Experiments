@@ -165,6 +165,7 @@ firmware("general_io")
     end)
     after_link(convert_to_uf2)
 ```
+10. We will need to use the `pinmux` to ensure that the RPi header is connected to the GPIO internally, it is not the default on every pin. 
 ## Example of Accessing RPi IO and using the PWM functions
 We've created a simple example of using these [here](https://github.com/GrassHopper1977/sonata-software/tree/IO_Experiments/experiments/01.general_io).
 Note: On V1.0, only PWM0 works. This is due to be fixed in V1.1. There is some test code for testing all the PWM outputs [here](https://github.com/GrassHopper1977/sonata-software/tree/IO_Experiments/experiments/02.pwm_outputs). The code also demostrates using the Arduino, PMOD and mikroBUS connectors for PWM outputs.
