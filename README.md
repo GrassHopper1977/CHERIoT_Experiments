@@ -1,6 +1,9 @@
 # CHERIoT_Experiments
 Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRISC. This is not intended to be any kind of replacement for the official documentation, it's more of a historical document for us during our experiments with the Sonata board but it may be of use to some.
 
+# General Notes
+1. There is no floating point library at the minute. You need to work around this.
+
 # Versions - IMPORTANT! Read this!
 There is a bit of a disconnect at the minute between lowRISC (that make the FPGA image) and Sonata (the development board). It should all be fixed in V1.0.0 but, until then, you have to be really careful to get the right firmware versions for things. For example:
 * lowRisc produce demos of V0.4.1 and V1.0.0 for the Sonata board but that's using the lowRisc build instructions
