@@ -5,7 +5,7 @@ Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRI
 1. There is no floating point library at the minute. You need to work around this.
 
 # Versions - IMPORTANT! Read this!
-You must ensure that you use teh correct version of the bitfile (the FPGA image) for the build environment that you are using. If you load Sonata with V1.0 and build for V0.2 it will not work.
+You must ensure that you use the correct version of the bitfile (the FPGA image) for the build environment that you are using. If you load Sonata with V1.0 and build for V0.2 it will not work.
 
 Different repositories target different versions of the bitfile.
 
@@ -26,7 +26,7 @@ This requires integrates with Visual Studio Code. You will need WSL & Docker the
 This method requires running a full virtual machine  but it works pretty well. It's is described in detail here:
 * [Using a Virtual Machine](windows_vm.md)
 ### Building the Code Examples
-Once you have an installed [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) development platform you can build teh code sampels as described here:
+Once you have an installed [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) development platform you can build the code sampels as described here:
 * [Building the Code Examples on Windows](cheriot-rtos_build.md)
 
 ## Using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software)
@@ -35,7 +35,7 @@ This is slightly different. It doesn't require Docker but still uses the Windows
 
 
 ## Terminal Access
-After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. COM9 was teh active debug port.
+After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. COM9 was the active debug port.
 
 The buad rate depends on which repositiry and which version you use:
 | Repository | Baud Rate |
@@ -63,7 +63,7 @@ But for device drivers, I like it when people upstream things, and so having tha
 ```
 I work in a fork of cheriot-demos, which comes with  dev container, submodules for rtos and the network stack, and a few examples of creating things that work with Sonata
 ```
-4. I have worked in forks of both [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) and [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos). It makes it easier to PR any chanegs back.
+4. I have worked in forks of both [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) and [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos). It makes it easier to PR any changes back.
 
 # Using the Sonata hardware (before V1)
 ## The Joystick, LEDs and RGB LED
