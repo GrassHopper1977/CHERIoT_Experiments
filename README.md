@@ -9,7 +9,14 @@ You must ensure that you use the correct version of the bitfile (the FPGA image)
 
 Different repositories target different versions of the bitfile.
 
+## Which Repository Should we Use?
 This page was very helpful in working it all out: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
+
+## Sources of help and information
+1. [Getting started with the Sonata board](https://lowrisc.github.io/sonata-system/doc/guide/index.html) This is the main documentation for the Sonata board and should be kept up to date.
+2. [Sonata Software - Getting started guide](https://lowrisc.github.io/sonata-software/doc/getting-started.html) This is the main documentation for the Sonata Software and should be kept up to date. This also includes a section on installing the IDE on Windows (using the Windows Subsystem for Linux).
+3. [From zero to CHERIoT in two minutes with Sonata](https://cheriot.org/fpga/ibex/2024/06/10/sonata-quick-start.html) This is the first one that I tried and it didn't work for me on Windows (it worked on an Ubuntu Virtual Machine though and via the [WSL](#installing-wsl)). I was unable to get it to build and it assumed that we had some other packages installed already. Do read this one carfully though, you'll notice that it uses the V0.2 firmware. If you try to use V0.4.1 then the files that you build will not work! All that is wrong with this for Windows is that you need WSL and you can't use VSCode to clone the repo - you have to use Git from WSL (see below for the [full instructions](#building-the-code-examples)).
+4. [Navigating the CHERIoT Ecosystem](https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html) This is a useful document that discusses the different repositories available and the pros and cons of each. It *should* (like this document) become largely obolete with the release of CHERIO-RTOS V1.0.
 
 # Setting Up Your Sonata Board
 This covers loading your Sonata board with a bitfile: [Setting Up Your Sonata Board](setup.md)
