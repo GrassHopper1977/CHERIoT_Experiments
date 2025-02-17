@@ -5,42 +5,65 @@ Our experiments with the Secure CHERIoT Ibex core on the Sonata Board from lowRI
 1. There is no floating point library at the minute. You need to work around this.
 
 # Versions - IMPORTANT! Read this!
-There is a bit of a disconnect at the minute between lowRISC (that make the FPGA image) and Sonata (the development board). It should all be fixed in V1.0.0 but, until then, you have to be really careful to get the right firmware versions for things. For example:
-* lowRisc produce demos of V0.4.1 and V1.0.0 for the Sonata board but that's using the lowRisc build instructions
-* Sonata describes using containers and Visual Studio Code, but those examples seem to be using V0.2
-It took me a week to realise that my code wouldn't work because I was using V0.4.1 on the board and V0.2 in the compiler. This page was very helpful in working it all out: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
+You must ensure that you use teh correct version of the bitfile (the FPGA image) for the build environment that you are using. If you load Sonata with V1.0 and build for V0.2 it will not work.
+
+Different repositories target different versions of the bitfile.
+
+This page was very helpful in working it all out: https://cheriot.org/rtos/sonata/git/2024/11/08/navigating-the-ecosystem.html
 
 # Setting Up Your Sonata Board
-[Setting Up Your Sonata Board](setup.md)
+This covers loading your Sonata board with a bitfile: [Setting Up Your Sonata Board](setup.md)
 
 # Installing Development Environment on Windows
-This is how to setup Visual Studio code on Windows for development.
-* [Using WSL](windows_setup.md#installing-development-environment-on-windows)
-* [Using a Virtual Machine](windows_setup.md#installing-on-windows-with-a-virtual-machine)
-* [Building the Code Examples on Windows](windows_setup.md#building-the-code-examples)
+This can vary slightly between repositories.
+
+## Using [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos)
+There's 2 options here:
+### Run it Directly From Windows
+This requires integrates with Visual Studio Code. You will need WSL & Docker the set up is described in detail here:
+* [Using WSL](windows_setup.md)
+### Run it from a Virtual Machine
+This method requires running a full virtual machine  but it works pretty well. It's is described in detail here:
+* [Using a Virtual Machine](windows_vm.md)
+### Building the Code Examples
+Once you have an installed [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) development platform you can build teh code sampels as described here:
+* [Building the Code Examples on Windows](cheriot-rtos_build.md)
+
+## Using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software)
+This is slightly different. It doesn't require Docker but still uses the Windows Subsystem for Linux running *nix. Detailed instructions can be found here:
+* [Setting up Sonata-Software Branch on Windows](windows_lowrisc.md)
 
 
 ## Terminal Access
-After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. 
-The buad rate depnds on which repositiry you use. If you are using [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) then it will be 921600bps. If you are using [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) then it will be 115200bps. I used PuTTY to connect to them at the required bit rate, using the `Serial` connection type. I ticked 'Implicit CR in every LF' under Terminal settings (it eliminates any ambiguity caused by the whole [Windows/Linux line endings debate](https://en.wikipedia.org/wiki/Newline#History)).
-The console output appears to be on COM9 for us.
+After connecting the Sonata, you may notice that 3 COM ports have appeared (On Windows, I have a look in Device Manager to get the names). For me they are COM8, COM9 and COM10. COM9 was teh active debug port.
+
+The buad rate depends on which repositiry and which version you use:
+| Repository | Baud Rate |
+| ---------- | --------- |
+| [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) >= V1.0 | 921600bps |
+| [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos) < V1.0 | 115200bps |
+| [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) | 921600bps |
+
 
 ## Creating a Repo for Working With
-I've not tried this yet but I've been given this note from Adam:
+
+These were some suggestions that we were given:
+1. This note from Adam:
 ```
 In terms of a repo for an empty project, it's fairly easy to make one. Add cheriot-rtos as a submodule and point xmake.lua to it (lines 9-10 in the repo I'm going to link). I need to bump RTOS to the latest version in this repo, just run "git submodule update --remote" if you try this out.
 https://github.com/3bian/3bian-sonata-empty-project
 ```
-I've been given this note from David Chisnall:
+2. This note from David Chisnall:
 ```
 For things that don't live in the same repo as the RTOS, you can reuse the dev container (you don't need to fork the RTOS, just reference the same dev container).
 
 But for device drivers, I like it when people upstream things, and so having that in the RTOS is nice.
 ```
-This note from Phil:
+3. This note from Phil:
 ```
 I work in a fork of cheriot-demos, which comes with  dev container, submodules for rtos and the network stack, and a few examples of creating things that work with Sonata
 ```
+4. I have worked in forks of both [lowRISC/Sonata-Software](https://github.com/lowRISC/sonata-software) and [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos). It makes it easier to PR any chanegs back.
 
 # Using the Sonata hardware (before V1)
 ## The Joystick, LEDs and RGB LED
