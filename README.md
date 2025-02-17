@@ -19,10 +19,13 @@ This can vary slightly between repositories.
 
 ## Using [CHERIoT-Platform/CHERIoT-RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos)
 There's 2 options here:
-### Run it Directly From Windows
+### 1. Run it Directly From Windows
 This requires integrates with Visual Studio Code. You will need WSL & Docker the set up is described in detail here:
 * [Using WSL](windows_setup.md)
-### Run it from a Virtual Machine
+Note: Docker desktop gets itself confused sometimes:
+1. If it won't open you may need to update WSL from the command line with `wsl --update` (your machine will reboot without warning!)
+2. After an update in may fail to launch saying it cannot find WSL so try this from the command line: `wsl --unregister docker-desktop`. When you restart Docker it should recreate the connection.
+### 2. Run it from a Virtual Machine
 This method requires running a full virtual machine  but it works pretty well. It's is described in detail here:
 * [Using a Virtual Machine](windows_vm.md)
 ### Building the Code Examples
