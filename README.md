@@ -22,6 +22,7 @@ There's 2 options here:
 ### 1. Run it Directly From Windows
 This requires integrates with Visual Studio Code. You will need WSL & Docker the set up is described in detail here:
 * [Using WSL](windows_setup.md)
+
 Note: Docker desktop gets itself confused sometimes:
 1. If it won't open you may need to update WSL from the command line with `wsl --update` (your machine will reboot without warning!)
 2. After an update in may fail to launch saying it cannot find WSL so try this from the command line: `wsl --unregister docker-desktop`. When you restart Docker it should recreate the connection.
